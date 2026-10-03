@@ -40,11 +40,7 @@ jobs:
       - name: Instalar dependências
         working-directory: ${{ env.PROJECT_DIR }}
         run: |
-          if [ -f package-lock.json ]; then
-            npm ci
-          else
-            npm install
-          fi
+          npm install --legacy-peer-deps
 
       - name: Gerar aplicação web
         working-directory: ${{ env.PROJECT_DIR }}
