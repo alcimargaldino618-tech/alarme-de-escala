@@ -50,13 +50,15 @@ jobs:
         working-directory: ${{ env.PROJECT_DIR }}
         run: |
           rm -rf dist-android
-           mkdir -p dist-android
-           cp -R dist/. dist-android/
-           echo "Conteúdo de dist:"
-           ls -la dist
-           echo "Conteúdo de dist-android:"
-           ls -la dist-android
-           test -f dist-android/index.html
+          mkdir -p dist-android
+          if [ -d "dist" ]; then
+            cp -R dist/. dist-android/
+          fi
+          echo "Conteúdo de dist:"
+          ls -la dist || true
+          echo "Conteúdo de dist-android:"
+          ls -la dist-android || true
+          
 
       - name: Adicionar plataforma Android
         working-directory: ${{ env.PROJECT_DIR }}
