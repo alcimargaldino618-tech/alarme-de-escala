@@ -46,6 +46,10 @@ jobs:
         working-directory: ${{ env.PROJECT_DIR }}
         run: npm run build
 
+      - name: Adicionar plataforma Android
+        working-directory: ${{ env.PROJECT_DIR }}
+        run: npx cap add android
+
       - name: Sincronizar Capacitor
         working-directory: ${{ env.PROJECT_DIR }}
         run: npx cap sync android
