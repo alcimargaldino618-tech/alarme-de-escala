@@ -52,18 +52,21 @@ jobs:
           rm -rf dist-android
           mkdir -p dist-android
           
-          # Se o build gerou arquivos em dist, copia para dist-android
-          if [ -d "dist" ]; then
+          # Tenta copiar de .output/public (se for Nitro/Nuxt) ou de dist (se for Vite normal)
+          if [ -d ".output/public" ]; then
+            cp -R .output/public/. dist-android/
+          elif [ -d "dist" ]; then
             cp -R dist/. dist-android/
           fi
 
-          # Se não existir um index.html, cria um arquivo básico para satisfazer o Capacitor
+          # Garante que existe um index.html para o Capacitor não falhar
           if [ ! -f "dist-android/index.html" ]; then
             echo '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>App</title></head><body><script type="module" src="./index.js"></script></body></html>' > dist-android/index.html
           fi
 
-          echo "Conteúdo de dist-android:"
+          echo "Conteúdo final de dist-android:"
           ls -la dist-android
+          
 
       - name: Adicionar plataforma Android
         working-directory: ${{ env.PROJECT_DIR }}
